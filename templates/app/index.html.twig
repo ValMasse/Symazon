@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Bienvenue sur la page d'accueil
+{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <h1>Bienvenue sur {{ appName }}</h1>
+        <p class="lead">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur beatae dolorem eaque eius, enim minima mollitia nobis non, nulla officiis omnis reprehenderit ullam unde. A doloremque necessitatibus odit reiciendis! Tempore!
+        </p>
+        <p>
+            <a href="{{ path('product_index') }}" class="btn btn-primary">Liste des produits</a>
+            <a href="{{ path('product_create') }}" class="btn btn-secondary">Ajouter un produit</a>
+            <a href="{{ path('category_index') }}" class="btn btn-secondary">Ajouter une Catégorie</a>
+        </p>
+    </div>
+
+    <hr>
+
+    <form action = '{{ path('products_search') }}' method='post' class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2">
+        <i class="fas fa-search" aria-hidden="true"></i>
+            <input name = 'search' class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+    aria-label="Search">
+    </form>
+
+    <h2>Les produits en stock</h2>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-4 mb-1">
+                <div class="card"><img src="https://picsum.photos/400/400" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <span class="badge badge-success">Quantité: {{ product.quantity }}</span>
+                        <span class="badge badge-primary">Prix: {{ product.price / 100 }} €</span>
+                        <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text">{{ product.category.title }}</p>
+                        <a href="{{ path('product_show', {id: product.id}) }}" class="btn btn-sm btn-outline-primary">Voir le produit</a></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
